@@ -1,0 +1,17 @@
+{
+  "name": "FX Sentinel AI Personal Scanner",
+  "short_name": "FX Sentinel",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08050f",
+  "theme_color": "#08050f",
+  "description": "Private AI-assisted trading chart scanner",
+  "icons": [
+    {
+      "src": "/static/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

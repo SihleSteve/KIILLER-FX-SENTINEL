@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08050f"><meta name="description" content="Private AI-assisted chart scanner">
+<link rel="manifest" href="/static/manifest.webmanifest">
+<link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+<title>FX Sentinel AI</title>
+<style>
+:root{--bg:#08050f;--panel:#130d20;--panel2:#1a1029;--purple:#a42bff;--violet:#6d1bda;--gold:#f4c64e;--muted:#b7a9c8;--line:#382052;--green:#27e58b;--red:#ff536b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1b0c2c 0,#08050f 48%);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:760px;margin:auto;padding:18px 15px 40px}.top{display:flex;align-items:center;gap:12px;margin:5px 0 20px}.logo{width:48px;height:48px;border:1px solid var(--gold);border-radius:15px;display:grid;place-items:center;color:var(--gold);font-size:25px;box-shadow:0 0 20px #a42bff55}.brand{font-weight:900;letter-spacing:.8px}.sub{font-size:12px;color:var(--muted)}.pill{margin-left:auto;border:1px solid #4a2864;border-radius:20px;padding:7px 10px;font-size:11px;color:#d9b6ff}
+h1{font-size:25px;margin:10px 0 4px}h2{font-size:16px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px}.card{background:linear-gradient(145deg,#1a1029,#0e0917);border:1px solid var(--line);border-radius:19px;padding:16px;margin:14px 0;box-shadow:0 12px 35px #0007}.upload{border:1.5px dashed #a42bff;border-radius:15px;padding:25px 14px;text-align:center;background:#170c27;cursor:pointer}.upload strong{display:block;margin:8px}.upload input{display:none}.row{display:flex;gap:9px;flex-wrap:wrap}.row>*{flex:1}.field{background:#0b0711;border:1px solid #40245a;color:white;border-radius:11px;padding:12px;width:100%;margin-top:6px}label{font-size:12px;color:#d7c6e8}.btn{border:0;border-radius:13px;padding:14px 16px;font-weight:800;color:white;background:linear-gradient(100deg,#7d19e8,#bd36ff);width:100%;margin-top:12px;box-shadow:0 0 18px #9c2aff55;cursor:pointer}.btn.gold{background:linear-gradient(100deg,#c58b18,#f5d15d);color:#180f04}.btn:disabled{opacity:.5}.preview{max-width:100%;max-height:260px;border-radius:12px;margin-top:12px;display:none}.result{display:none}.signal{font-size:28px;font-weight:950;letter-spacing:1px}.BUY{color:var(--green)}.SELL{color:var(--red)}.WAIT{color:var(--gold)}.score{font-size:29px;color:var(--gold);font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:#0b0711;border:1px solid #332044;border-radius:12px;padding:11px}.metric small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.metric b{font-size:13px;overflow-wrap:anywhere}.list{padding-left:18px;color:#e8def2;font-size:13px;line-height:1.55}.warning{font-size:11px;color:#cbbbd8;line-height:1.45;border-left:3px solid var(--gold);padding-left:10px;margin-top:13px}.history-item{padding:11px;border-bottom:1px solid #332044;display:flex;justify-content:space-between;gap:10px;font-size:13px}.hidden{display:none!important}.footer{text-align:center;color:#8c7b9d;font-size:11px;padding:18px}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div class="logo">♛</div><div><div class="brand">FX SENTINEL AI</div><div class="sub">PERSONAL CHART SCANNER</div></div><div class="pill">PRIVATE EDITION</div></header>
+<h1>Scan your chart.</h1><div class="muted">Upload a screenshot for a cautious AI technical read.</div>
+<section class="card">
+<h2>01 / Chart screenshot</h2>
+<label class="upload" for="image"><div style="font-size:30px">▧</div><strong id="uploadText">Tap to upload chart</strong><span class="muted">PNG, JPG or WEBP · up to 12 MB</span><input id="image" type="file" accept="image/png,image/jpeg,image/webp"></label>
+<img id="preview" class="preview" alt="Chart preview">
+<div class="row" style="margin-top:12px">
+<div><label for="symbol">Symbol (optional)</label><input id="symbol" class="field" placeholder="e.g. EURUSD"></div>
+<div><label for="tf">Timeframe</label><select id="tf" class="field"><option>M5</option><option selected>M15</option><option>H1</option><option>H4</option><option>D1</option></select></div>
+</div>
+<button id="scan" class="btn" disabled>✦ ANALYSE CHART</button>
+<div id="status" class="muted" style="margin-top:10px"></div>
+</section>
+<section id="result" class="card result">
+<div class="muted">02 / AI analysis result</div>
+<div class="row" style="align-items:center;margin:8px 0 14px"><div><div id="direction" class="signal">WAIT</div><div class="muted">Directional bias</div></div><div style="text-align:right"><div id="confidence" class="score">--/100</div><div class="muted">Evidence score, not win probability</div></div></div>
+<div class="grid">
+<div class="metric"><small>ENTRY ZONE</small><b id="entry">—</b></div><div class="metric"><small>STOP LOSS</small><b id="sl">—</b></div><div class="metric"><small>TAKE PROFIT</small><b id="tp">—</b></div><div class="metric"><small>MARKET TREND</small><b id="trend">—</b></div>
+</div>
+<h2 style="margin-top:16px">Market structure</h2><p id="structure" class="muted"></p>
+<h2>Liquidity & key levels</h2><p id="liquidity" class="muted"></p><p id="levels" class="muted"></p>
+<h2>AI reasoning</h2><ul id="reasoning" class="list"></ul>
+<h2>Invalidation</h2><p id="invalid" class="muted"></p>
+<h2>Limitations</h2><ul id="limitations" class="list"></ul>
+<div class="warning" id="disclaimer"></div>
+<button id="save" class="btn gold">SAVE TO MY HISTORY</button>
+</section>
+<section class="card"><div class="row" style="align-items:center"><h2 style="margin:0">Scan history</h2><button id="clear" style="max-width:110px;background:#271438;border:1px solid #563273;color:white;border-radius:10px;padding:8px">Clear</button></div><div id="history" class="muted" style="margin-top:8px">No saved scans yet.</div></section>
+<div class="footer">FX SENTINEL AI · PERSONAL USE<br>AI analysis is fallible. Always verify levels and risk independently.</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);let current=null, file=null;
+$("image").addEventListener("change",e=>{file=e.target.files[0];if(!file)return;$("uploadText").textContent=file.name;$("preview").src=URL.createObjectURL(file);$("preview").style.display="block";$("scan").disabled=false;$("status").textContent=""});
+function setText(id,v){$(id).textContent=(v===undefined||v===null||v==="")?"Not identified":v}
+$("scan").onclick=async()=>{if(!file)return;$("scan").disabled=true;$("status").textContent="Analysing screenshot…";$("result").style.display="none";const fd=new FormData();fd.append("image",file);fd.append("timeframe",$("tf").value);fd.append("symbol",$("symbol").value||"Unknown");try{const r=await fetch("/api/analyze",{method:"POST",body:fd});const d=await r.json();if(!r.ok)throw new Error(d.detail||"Analysis failed");current=d;render(d);$("status").textContent="Analysis complete. Verify everything on your live chart."; }catch(err){$("status").textContent=err.message;}finally{$("scan").disabled=false}};
+function render(d){$("result").style.display="block";setText("direction",d.direction);$("direction").className="signal "+d.direction;setText("confidence",d.confidence+"/100");setText("entry",d.entry_zone);setText("sl",d.stop_loss);setText("tp",d.take_profit);setText("trend",d.trend);setText("structure",d.structure);setText("liquidity",d.liquidity);setText("levels",d.key_levels);setText("invalid",d.invalid_if);setText("disclaimer",d.disclaimer);$("reasoning").innerHTML="";(d.reasoning||[]).forEach(x=>{let li=document.createElement("li");li.textContent=x;$("reasoning").append(li)});$("limitations").innerHTML="";(d.limitations||[]).forEach(x=>{let li=document.createElement("li");li.textContent=x;$("limitations").append(li)});$("result").scrollIntoView({behavior:"smooth"})}
+function getHistory(){try{return JSON.parse(localStorage.getItem("fxsa_history")||"[]")}catch{return[]}}
+function showHistory(){let h=getHistory();$("history").innerHTML="";if(!h.length){$("history").textContent="No saved scans yet.";return}h.slice().reverse().forEach(x=>{let div=document.createElement("div");div.className="history-item";let a=document.createElement("span");a.textContent=x.symbol+" · "+x.tf+" · "+x.date;let b=document.createElement("b");b.textContent=x.direction+" · "+x.confidence+"/100";b.className=x.direction;div.append(a,b);$("history").append(div)})}
+$("save").onclick=()=>{if(!current)return;let h=getHistory();h.push({symbol:$("symbol").value||current.symbol_detected||"Unknown",tf:$("tf").value,direction:current.direction,confidence:current.confidence,date:new Date().toLocaleString()});localStorage.setItem("fxsa_history",JSON.stringify(h.slice(-100)));showHistory();$("save").textContent="SAVED ✓"};
+$("clear").onclick=()=>{if(confirm("Clear all saved scan history on this device?")){localStorage.removeItem("fxsa_history");showHistory()}};showHistory();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("/static/sw.js").catch(()=>{});
+</script></body></html>
