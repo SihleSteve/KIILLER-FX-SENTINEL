@@ -15,7 +15,7 @@ from google.genai import types
 load_dotenv()
 
 ROOT = Path(__file__).parent
-MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
+MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash")
 
 api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key) if api_key else None
